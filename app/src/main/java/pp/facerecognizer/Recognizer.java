@@ -159,10 +159,13 @@ public class Recognizer {
                 matrix.mapRect(rectF);
                 int index = prediction.getIndex();
 
-                String name = classNames.get(index);
-                Recognition result =
-                        new Recognition("" + index, name, prediction.getProb(), rectF);
-                mappedRecognitions.add(result);
+
+                if(index <= classNames.size()-1) {
+                    String name = classNames.get(index);
+                    Recognition result =
+                            new Recognition("" + index, name, prediction.getProb(), rectF);
+                    mappedRecognitions.add(result);
+                }
             }
             return mappedRecognitions;
         }

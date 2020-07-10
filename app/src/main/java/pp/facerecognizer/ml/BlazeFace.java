@@ -15,6 +15,8 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -280,15 +282,22 @@ public class BlazeFace {
         // the index of the detection in the original vector from which the score
         // stems, while the second is the actual score.
         List<IndexedScore> indexed_scores = new ArrayList<>();
+        //Collection<IndexedScore> indexed_scores = new ArrayList<T>();
         for (int index = 0; index < detections.size(); ++index) {
             indexed_scores.add(
                     new IndexedScore(index, detections.get(index).score));
         }
-        indexed_scores.sort((o1, o2) -> {
+
+        Collections.sort(indexed_scores,(o1, o2) -> {
             if (o1.score > o2.score) return 1;
             else if (o1.score == o2.score) return 0;
             return -1;
-        });
+        } );
+        /*indexed_scores.sort((o1, o2) -> {
+            if (o1.score > o2.score) return 1;
+            else if (o1.score == o2.score) return 0;
+            return -1;
+        });*/
 
         // A set of detections and locations, wrapping the location data from each
         // detection, which are retained after the non-maximum suppression.
